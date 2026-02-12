@@ -8,8 +8,6 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */
-    // use PDO;
-    // use Exception;
     # Class Crypto & Key
     use \Defuse\Crypto\Crypto;
     use \Defuse\Crypto\Key;
@@ -21,72 +19,41 @@
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
 class CookiesRemember{
 /* ▂ ▅ Attributs ▅ ▂ */ 
-    protected $keyCrypto_;
-    protected $nameCookie_;
-    protected $durationCookie_;
-    protected $adressIp_;
-    protected $idUserAccount_;
-    protected $idLoginAccount_;
-    protected $cookiesCrypted_;
+    private $keyCrypto_;
+    private $cookiesCrypted_;
 
-/* ▂ ▅  construct  ▅ ▂ */
+
+/* ▂ ▅ ▆ █ __construct() █ ▆ ▅ ▂ */
     /* @ $objCookiesRemember( ) */
-    public function __construct(  ){;
+    public function __construct( ){;
+        $this -> keyCrypto_ = '';
+        $this -> cookiesCrypted_ = '';
+    }
+
+
+/* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
+
+    /* ▂ ▅ ▆ █ createCookieCrypted() █ ▆ ▅ ▂ */
+    public function createCookieCrypted( $cookies ) {
         $this -> keyCrypto_ = Key::createNewRandomKey();
-        $this -> nameCookie_ = 'cookie_remember';
-        $this -> durationCookie_ = time() + $_ENV['END_DATE_REMEMBER_ME']; 
-        $this -> adressIp_ = $_SERVER['REMOTE_ADDR'];
-        $this -> idUserAccount_ = null;
-        $this -> idLoginAccount_ = null;
-        $this -> cookiesCrypted_ = null;    
+        $this -> cookiesCrypted_ = Crypto::encrypt( json_encode($cookies), $this -> keyCrypto_ );
     }
 
-
-
-/* ▂ ▅  whriteCookies()  ▅ ▂ */
-    public function whriteCookies($id1, $id2){
-        $cookies = [
-            'idLoginAccount' => $this -> idLoginAccount_,
-            'idUserAccount' => $this -> idUserAccount_,
-            'adressIp' => $this -> adressIp_,
-            'durationCookie' => $this -> durationCookie_,
-            'keyCrypto' => $this -> keyCrypto_->saveToAsciiSafeString()
-        ];
-        return $cookies;
+    /* ▂ ▅ ▆ █ decryptCookieCrypted() █ ▆ ▅ ▂ */
+    public function decryptCookieCrypted( $cookieCrypted, $keyCrypto) { 
+    $cookieDecryptJson = Crypto::decrypt( $cookieCrypted, Key::loadFromAsciiSafeString( $keyCrypto ) );
+    return json_decode($cookieDecryptJson);
     }
 
-/* ▂ ▅  cryptCookies()  ▅ ▂ */
-    public function cryptCookies($cookies){
-        $cookiesJson = json_encode($cookies);
-        $this -> cookiesCrypted_ = Crypto::encrypt($cookiesJson, $this -> keyCrypto_);
-        return $this -> cookiesCrypted_;
-    }
+    /* ▂ ▅ ▆ █ Setters() █ ▆ ▅ ▂ */
+    public function setKeyCrypto( $keyCrypto ) {$this -> keyCrypto_ = $keyCrypto;}
+    public function setCookiesCrypted( $cookiesCrypted ) {$this -> cookiesCrypted_ = $cookiesCrypted;}
 
-    /* ▂ ▅  hydrate()  ▅ ▂ */
-        /* @ hydrate($donnees) */
-        public function hydrate($donnees){
-            foreach ($donnees as $attribut => $valeur){
-                $methode = 'set'.str_replace(' ', '', ucwords(str_replace('_', ' ', $attribut)));
-                if (is_callable(array($this, $methode))){
-                    $this->$methode($valeur);
-                };
-            }
-        }
 
-    /* ▂ ▅  Setters  ▅ ▂ */
-        /* Traitement faille XSS htmlspecialchars() 'Cette fonction retourne une chaîne avec ces Conversions réalisées.' */
-        /* ENT_QUOTES => Convertira les deux citations doubles et simples. */
+    /* ▂ ▅ ▆ █ Getters() █ ▆ ▅ ▂ */
+    public function getKeyCrypto( ) {return $this -> keyCrypto_-> saveToAsciiSafeString();}
+    public function getCookiesCrypted( ) {return $this -> cookiesCrypted_ ;}
 
-    /* ▂ ▅  Getters  ▅ ▂ */
-        /* Traitement lecture htmlspecialchars_decode() 'Convertir des entités HTML spéciales en caractères'  */
-        /* ENT_COMPAT => Je vais convertir les guillemets doubles et laisser les guillemets simples intacts. */
-        public function getkeyCrypto(){ return $this -> keyCrypto_; }
-        public function getNameCookie(){ return $this -> nameCookie_; }
-        public function getDurationCookie(){ return $this -> durationCookie_; }
-        public function getAdressIp(){ return $this -> adressIp_; }
-        public function getIdUserAccount(){ return $this -> idUserAccount_; }
-        public function getIdLoginAccount(){ return $this -> idLoginAccount_; }
-        public function getCookiesCrypted(){ return $this -> cookiesCrypted_; }
 };
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */
 ?>

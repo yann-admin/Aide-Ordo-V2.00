@@ -50,25 +50,20 @@
 
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
 class CookiesRememberController {
-/* ▂ ▅ Attributs ▅ ▂ */ 
+    /* ▂ ▅ ▆ █ Attributs █ ▆ ▅ ▂ */ 
     protected $objCookiesRememberModel_;
     protected $objCookiesRemember_;
 
-    /* ▂ ▅  createCookieRemember( )  ▅ ▂ */
-    public function createCookieRemember( $id1, $id2 ){
+/* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
+
+    /* ▂ ▅ ▆ █ __construct() █ ▆ ▅ ▂ */
+    public function __construct( $cookies ){;
         # Step 1: We create a new object CookiesRemember and CookiesRememberModel
-        $this -> objCookiesRemember_ = new CookiesRemember(  );
+        $this -> objCookiesRemember_ = new CookiesRemember( $cookies );
         $this -> objCookiesRememberModel_ = new CookiesRememberModel();
-        # Step 2: We set the properties of the object CookiesRemember with the data of the user and the cookie remember      
-        $cookies = $this -> objCookiesRemember_ -> whriteCookies($id1, $id2);
-        $cookiesCrypted = $this -> objCookiesRemember_ -> cryptCookies($cookies);
-        # Step 3: We save the cookie remember in the database
-        $this -> objCookiesRememberModel_ -> create($cookies, $cookiesCrypted );
-        setcookie("rememberMe", $cookiesCrypted, (time() + $_ENV['END_DATE_REMEMBER_ME']), "/", $_ENV['DOMAINE'], true, true);
-        
     }
 
-
+/* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
 
 
 };

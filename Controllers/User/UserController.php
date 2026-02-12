@@ -26,9 +26,8 @@
     use App\Models\User\UserModel;
 
     # Class Controllers & Entity & Models CookiesRemember
-    use App\Controllers\CookiesRemember\CookiesRememberController;
-    // use App\Entities\CookiesRemember\CookiesRemember;
-    // use App\Models\CookiesRemember\CookiesRememberModel;
+    use App\Entities\CookiesRemember\CookiesRemember;
+    use App\Models\CookiesRemember\CookiesRememberModel;
 
     // #  Class RenderData & ResponseJson & CreateDivInformation
     use App\Core\RenderData\RenderData;
@@ -38,11 +37,6 @@
     // # Class other
     use App\Core\Other\HeadData;
     use App\Core\Other\FooterData;
-
-    # Class Crypto & Key
-    // use \Defuse\Crypto\Crypto;
-    // use \Defuse\Crypto\Key;
-    // require '../vendor/autoload.php';
 
     error_reporting(E_ALL);
     
@@ -67,7 +61,9 @@ class UserController extends Controller{
     # Attributs other
     private $objResponseJson_;
     private $objCreateDivInformation_;
-
+    # Attributs CookiesRemember
+    private $objCookiesRemember_;
+    private $objCookiesRememberModel_;
 
 /* ▂ ▅ ▆ █ __construct() █ ▆ ▅ ▂ */
 public function __construct() {
@@ -86,6 +82,9 @@ public function __construct() {
     # Attributs other
     $this->objResponseJson_ = new ResponseJson();
     $this->objCreateDivInformation_ = new CreateDivInformation();
+    # Attributs CookiesRemember
+    $this->objCookiesRemember_ = new CookiesRemember();
+    $this->objCookiesRememberModel_ = new CookiesRememberModel();
 
 }
 
@@ -189,21 +188,26 @@ public function __construct() {
                                 # Step code 8.2.2.1 if "Remember Me" checkbox is checked we create a remember me cookie with a token and we save the token in the database with the idUserAccount
                                 if( isset($postEncode['check-RememberMe']) && $postEncode['check-RememberMe'] === 'on' ){
                                     # Step code 8.2.2.2 We create cookie remember 
-                                        # Attributs CookiesRemember
-                                    $objCookiesRememberController = new CookiesRememberController(  );
-                                    # @ createCookieRemember( string $adressIp, int $idUserAccount, int $idLoginAccount, string $endDateRememberMe )
-                                    $createCookieRemember = $objCookiesRememberController -> createCookieRemember( $resultFind->idLoginAccount, $resultFind->idUserAccount );
-                                    if( gettype($createCookieRemember) == "boolean" ){
-                                        if ( $createCookieRemember ) {
-                                            # Step code
-                                            
+                                    $cookies = ['adressIp'=> $_SERVER['REMOTE_ADDR'], 
+                                                'idUserAccount' => $resultFind -> idUserAccount, 
+                                                'idLoginAccount' => $resultFind -> idLoginAccount, 
+                                                'endDate' => time() + ($_ENV['END_DATE_REMEMBER_ME'])
+                                                ];
+                                    # Attributs CookiesRemember
+                                    $this->objCookiesRemember_ -> createCookieCrypted( $cookies );
+                                    $objCookiesRemember = $this->objCookiesRemember_; # Step code
+                                    $addCookies = $this->objCookiesRememberModel_ -> addCookies( $objCookiesRemember,  $cookies );
+
+                                    if( gettype($addCookies) == "boolean" ){
+                                        if ( $addCookies ) {
+                                            $objCookies= $objCookiesRemember -> getCookiesCrypted( );
+                                            # Step code 8.2.2.3 set cookie remember 
+                                            setcookie("rememberMe", $objCookies, (time() + $_ENV['END_DATE_REMEMBER_ME']), "/", $_ENV['DOMAINE'], true, true);
                                         };
-
-
                                     }else{
                                         # error PDO
-                                        $errorProcess = '';
-                                        $messageProcess = "Error PDO in createCookieRemember ". "<br>" . $createCookieRemember -> errorText;
+                                        $errorProcess = 'danger';
+                                        $messageProcess = "Error PDO in createCookieRemember ". "\n" . $addCookies -> errorText;
                                         goto endProcess;
                                     };
 
@@ -232,15 +236,9 @@ public function __construct() {
                 }else{
                     # error PDO
                     $errorProcess = '';
-                    $messageProcess = "Error PDO in duplicateCheck email ". "<br>" . $resultFind -> errorText;
+                    $messageProcess = "Error PDO in duplicateCheck email ". "\n" . $resultFind -> errorText;
                     goto endProcess;
                 };
-
-
-
-
-
-
 
             /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */
 
@@ -253,69 +251,192 @@ public function __construct() {
         };
 
         /* ▂ ▅ ▆ █  END PROCESS  █ ▆ ▅ ▂ */
-        endProcess:
-        switch ($errorProcess) {
-            case 'primary':
-                # code if primary #031633 
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getPrimary( $messageProcess);
-                break;
-            case 'secondary':
-                # code if secondary #161719
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getSecondary( $messageProcess );
-                break;
-            case 'danger':
-                # code if danger #2c0b0e
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
-                break;
-            case 'warning':
-                # code if warning #332701
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getWarning( $messageProcess );
-                break;
-            case 'info':
-                # code if info #0dcaf0
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getInfo( $messageProcess );
-                break;
-            case 'light':
-                # code if light #f8f9fa
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getLight( $messageProcess );
-                break;
-            case 'dark':
-                # code if dark #212529
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getDark( $messageProcess );
-                break;
-            case 'success':
-                # code if success
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/            
-                $status= true; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "home";
-                $messageProcess = $this->objCreateDivInformation_ -> getSuccess( $messageProcess );
-                break;
-            default:
-                # code if errorProcess is exceptionPDO
-                /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/
-                $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
-                $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
-                break;
-        }   
+            endProcess:
+            switch ($errorProcess) {
+                case 'primary':
+                    # code if primary #031633 
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getPrimary( $messageProcess);
+                    break;
+                case 'secondary':
+                    # code if secondary #161719
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getSecondary( $messageProcess );
+                    break;
+                case 'danger':
+                    # code if danger #2c0b0e
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
+                    break;
+                case 'warning':
+                    # code if warning #332701
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getWarning( $messageProcess );
+                    break;
+                case 'info':
+                    # code if info #0dcaf0
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getInfo( $messageProcess );
+                    break;
+                case 'light':
+                    # code if light #f8f9fa
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getLight( $messageProcess );
+                    break;
+                case 'dark':
+                    # code if dark #212529
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDark( $messageProcess );
+                    break;
+                case 'success':
+                    # code if success
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/            
+                    $status= true; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "home";
+                    $messageProcess = $this->objCreateDivInformation_ -> getSuccess( $messageProcess );
+                    break;
+                default:
+                    # code if errorProcess is exceptionPDO
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
+                    break;
+            }   
 
-        $responseFetch = [ "status"=>$status, "div"=>$divMsgUser, "msg"=>$messageProcess, "data"=>$data, "redirect"=>$redirect ];
-        echo ($this->objResponseJson_ -> responseFetch( $responseFetch ));        
+            $responseFetch = [ "status"=>$status, "div"=>$divMsgUser, "msg"=>$messageProcess, "data"=>$data, "redirect"=>$redirect ];
+            echo ($this->objResponseJson_ -> responseFetch( $responseFetch ));        
         /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂  */ 
 
     }
+
+
+    /* ▂ ▅ ▆ █  checkCookieRemember( $cookieRemember)  █ ▆ ▅ ▂ */
+    Public function checkCookieRemember( $cookieRemember ){ 
+        # Step 1.0 We define variables
+        /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/            
+        $status= false; $divMsgUser = "Msg-form"; $messageProcess = ""; $data = []; $redirect = ""; 
+        $errorProcess = '';
+        # Step 2.0 We find cookies in database
+        $resultFind = $this->objCookiesRememberModel_ -> findByCookie( $cookieRemember );
+        # Step 3.0 if not error PDO we verify if identifiant exist
+        if ( !isset($resultFind -> errorText) ) {
+            if ( $resultFind !== '' && $resultFind -> cookieCrypted === $cookieRemember ) { 
+                # Step 3.1 We decrypt cookie remember with the key crypto 
+                $cookieDecrypted = $this->objCookiesRemember_ -> decryptCookieCrypted( $resultFind -> cookieCrypted,$resultFind -> keyCrypto ); 
+                # Step 3.2 We verify if the cookie remember is not expired with the end date
+                if ( $cookieDecrypted -> endDate >= time() ) {
+                    # Step 3.3 We search data user in database
+                    $dataUser = $this->objUserModel_ -> findById( $cookieDecrypted->idUserAccount ); 
+                    # Step 3.4 We verify if not error PDO in findById 
+                    if ( !isset($dataUser -> errorText) ) { 
+                        if ( $dataUser !== '' ){
+                            /* Set Session */
+                            $_SESSION['connected'] = true;
+                            $_SESSION['UserInformation'] = [
+                                'idUserAccount' => $dataUser -> idUserAccount,
+                                'userName' => $dataUser -> userName,
+                                'userFirstName' => $dataUser -> userFirstName,
+                                'userEmail' => $dataUser -> userEmail,
+                                'userAccess' => $dataUser -> userAccess,
+                            ];  
+                            return true;
+                        };
+
+                    }else{
+                    # error PDO $dataUser
+                    $errorProcess = '';
+                    $messageProcess = "Error PDO in dataUser email ". "\n" . $dataUser -> errorText;
+                    goto endProcess;
+                    };
+
+                }else{
+
+                };
+
+            }else{ 
+
+            };
+            
+
+        }else{
+        # error PDO $resultFind
+        $errorProcess = '';
+        $messageProcess = "Error PDO in resultFind email ". "\n" . $resultFind -> errorText;
+        goto endProcess;
+        };
+    
+
+        /* ▂ ▅ ▆ █  END PROCESS  █ ▆ ▅ ▂ */
+        endProcess:
+            switch ($errorProcess) {
+                case 'primary':
+                    # code if primary #031633 
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getPrimary( $messageProcess);
+                    break;
+                case 'secondary':
+                    # code if secondary #161719
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getSecondary( $messageProcess );
+                    break;
+                case 'danger':
+                    # code if danger #2c0b0e
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
+                    break;
+                case 'warning':
+                    # code if warning #332701
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getWarning( $messageProcess );
+                    break;
+                case 'info':
+                    # code if info #0dcaf0
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getInfo( $messageProcess );
+                    break;
+                case 'light':
+                    # code if light #f8f9fa
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getLight( $messageProcess );
+                    break;
+                case 'dark':
+                    # code if dark #212529
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/  
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDark( $messageProcess );
+                    break;
+                case 'success':
+                    # code if success
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/            
+                    $status= true; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "home";
+                    $messageProcess = $this->objCreateDivInformation_ -> getSuccess( $messageProcess );
+                    break;
+                default:
+                    # code if errorProcess is exceptionPDO
+                    /* Variable for response json $divMsgUser = "Msg-form" or Msg-body*/
+                    $status= false; $divMsgUser = "Msg-form"; $messageProcess = $messageProcess; $data = []; $redirect = "";
+                    $messageProcess = $this->objCreateDivInformation_ -> getDanger( $messageProcess );
+                    break;
+            }   
+
+            $responseFetch = [ "status"=>$status, "div"=>$divMsgUser, "msg"=>$messageProcess, "data"=>$data, "redirect"=>$redirect ];
+            echo ($this->objResponseJson_ -> responseFetch( $responseFetch ));        
+        /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂  */ 
+
+    }
+
 
      /* ▂ ▅ ▆ █  userDisconnect( )  █ ▆ ▅ ▂ */
      public function userDisconnect( ){
@@ -406,7 +527,7 @@ public function __construct() {
                                 }else{
                                     # error PDO
                                     $errorProcess = '';
-                                    $messageProcess = "Error PDO in addAccount ". "<br>" . $addAccount -> errorText;
+                                    $messageProcess = "Error PDO in addAccount ". "\n" . $addAccount -> errorText;
                                     goto endProcess;
                                 };
 
@@ -420,7 +541,7 @@ public function __construct() {
                         }else{
                             # error PDO
                             $errorProcess = '';
-                            $messageProcess = "Error PDO in duplicateCheck identifiant ". "<br>" . $identifiantExist -> errorText;
+                            $messageProcess = "Error PDO in duplicateCheck identifiant ". "\n" . $identifiantExist -> errorText;
                             goto endProcess;
 
                         }; 
@@ -435,7 +556,7 @@ public function __construct() {
                 }else{
                     # error PDO
                     $errorProcess = '';
-                    $messageProcess = "Error PDO in duplicateCheck email ". "<br>" . $emailExist -> errorText;
+                    $messageProcess = "Error PDO in duplicateCheck email ". "\n" . $emailExist -> errorText;
                     goto endProcess;
 
                 }; 
@@ -582,7 +703,7 @@ public function __construct() {
                 }else{
                     # error PDO
                     $errorProcess = '';
-                    $messageProcess = "Error PDO in updateJoint user account ". "<br>" . $updateAccount -> errorText;
+                    $messageProcess = "Error PDO in updateJoint user account ". "\n" . $updateAccount -> errorText;
                     goto endProcess;
                 };
  
@@ -689,7 +810,7 @@ public function __construct() {
         }else{
             # error PDO
             $errorProcess = '';
-            $messageProcess = "Error PDO in delete user account ". "<br>" . $deleteAccount -> errorText;
+            $messageProcess = "Error PDO in delete user account ". "\n" . $deleteAccount -> errorText;
             goto endProcess;
         };
         /* ▂ ▅ ▆ █  END PROCESS  █ ▆ ▅ ▂ */

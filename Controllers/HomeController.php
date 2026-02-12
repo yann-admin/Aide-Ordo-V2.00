@@ -36,47 +36,60 @@
 
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
 class HomeController extends Controller{
+ /* ▂ ▅ Attributs ▅ ▂ */
+    private $objHeadData;
+    private $objFooterData;
+    private $objRenderData;
 
 /* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
 
+/* ▂ ▅ ▆ █ __construct() █ ▆ ▅ ▂ */
+    public function __construct( ){;
+        $this -> objHeadData = new HeadData();
+        $this -> objFooterData = new FooterData(); 
+        $this -> objRenderData = new RenderData();
+    }
+
     /* ▂ ▅  index()  ▅ ▂ */
     Public function index(){
-        # Step 1.0 We instantiate new object
-        $objHeadData = new HeadData();
-        $objFooterData = new FooterData();
-        $objRenderData = new RenderData(); 
-        # Step 2.0 we test S_SESSION['connected'] exist and is true
+        // # Step 1.0 We instantiate new object
+        // $objHeadData = $this -> objHeadData;
+        // $objFooterData = $this -> objFooterData;
+        // $objRenderData = $this -> objRenderData; 
+        # Step 2.0 We verify cookies remember exist and is valid 
+        if( isset($_COOKIE['rememberMe']) ){ 
+            $cookieRemember = $_COOKIE['rememberMe']; 
+            # Step 2.1 We instancie new object UserController()
+            $objUserController = new UserController();
+            $checkCookieRemember = $objUserController -> checkCookieRemember( $cookieRemember ); 
+            if ( $checkCookieRemember == true ) { 
+                $this->objRenderData -> hydrate([
+                    'ongletText_' => "Accueil - Chichoune Api",
+                    'other_' => "Bonjour " . $_SESSION["UserInformation"]["userFirstName"] . " ravi de vous revoir", ]);
+                $this->render('home/index', ['HeadData' => $this->objHeadData, 'RenderData' => $this->objRenderData, 'FooterData' => $this->objFooterData] );  
+            }else{ 
+                $this -> connect();
+            };
+        }else{
+            $this -> connect();
+        };
+    }
+
+    private function connect(){
+        # Step 3.0 we test S_SESSION['connected'] exist and is true
         if ( (isset($_SESSION['connected'])) && ($_SESSION['connected'] == true) ){
             # if true we render the view home/index with the data of head and footer
-            $objRenderData->hydrate([
+            $this->objRenderData -> hydrate([
                 'ongletText_' => "Accueil - Chichoune Api",
                 'other_' => "Bonjour et Bienvenue " . $_SESSION["UserInformation"]["userFirstName"], ]);
             
-            $this->render('home/index', ['HeadData' => $objHeadData, 'RenderData' => $objRenderData, 'FooterData' => $objFooterData] );          
+            $this->render('home/index', ['HeadData' => $this->objHeadData, 'RenderData' => $this->objRenderData, 'FooterData' => $this->objFooterData] );          
         }else{
-            // # if false we redirect via .htaccess App/Public/index.php?controller=User|User&action=showLoginForm
-            // # Step 1.0 We instantiate new object
-            // $objUserController = new UserController();
-            // $form = $objUserController->showLoginForm();
-            // # Step 3.0: We render the view user/form with the data of head and footer and form
-            // $objRenderData->hydrate([
-            //     'forms_' => $form,
-            //     'ongletText_' => "Login - Chichoune Api",
-            //     'sheetCss_' => "App/Css/formLoginAccount.css",
-            //     'scriptJs_' => "App/Js/scriptPage/form-V3.js",
-            //     'other_' => "Bienvenue sur la plateforme d'aide pour l'ordonnancement. \n Veuillez vous connecter pour accéder à votre espace personnalisé ou créer un compte si vous n'en avez pas encore.",
-            // ]);
-            // # Step 4.0 We render the view
-            // $this -> render('user/form', ['HeadData' => $objHeadData, 'RenderData' => $objRenderData, 'FooterData' => $objFooterData] ); 
-                header('Location: user-login');
-                exit();
+            header('Location: user-login');
+            exit();
         };
 
-
-
-
     }
-
 
 
 

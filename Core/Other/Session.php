@@ -6,7 +6,7 @@
 	/* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
     
 	/* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */
-        use App\Models\User\CookiesRememberModel;
+        use App\Models\CookiesRemember\CookiesRememberModel;
 	/* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
     /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
