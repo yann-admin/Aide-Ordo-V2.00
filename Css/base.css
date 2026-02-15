@@ -40,7 +40,13 @@
         width: 100%;
         height: auto;
     }
-
+    .container-table{
+        overflow-x: scroll;  
+        font-size: 0.8em;     
+        .hidden{
+            display: none;
+        }
+    }
 }
 
 
@@ -64,6 +70,9 @@
         width: 50%;
         height: auto;
     }    
+    .container-table{
+        font-size: 0.7em;
+    }
 
 }
 
@@ -90,7 +99,9 @@
         width: 30%;
         height: auto;
     }
-
+    .container-table{
+        font-size: 0.85em;
+    }
     
 }
 
@@ -159,3 +170,4 @@ footer{
     inset -2px -2px 3px rgb(255 255 255 / 0.6),
     inset 2px 2px 3px rgb(0 0 0 / 0.6);
 } */
+

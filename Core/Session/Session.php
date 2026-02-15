@@ -2,7 +2,7 @@
     /* ▂ ▅ ▆ █ Information █ ▆ ▅ ▂ */
 
     /* ▂ ▅ ▆ █ NameSpace █ ▆ ▅ ▂ */
-        namespace App\Core\Other;
+        namespace App\Core\Session;
 	/* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
     
 	/* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */

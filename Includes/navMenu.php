@@ -1,8 +1,8 @@
 <?php
     /* ▂ ▅ ▆ █ Declaration of variables █ ▆ ▅ ▂ */
-    if( isset( $_SESSION['UserInformation']['userAccess'] ) ){
-        $level = $_SESSION['UserInformation']['userAccess'];
-        $id = $_SESSION['UserInformation']['idUserAccount'];
+    if( isset( $_SESSION["User"]["userAccess"] ) ){
+        $level = $_SESSION["User"]["userAccess"];
+        $id = $_SESSION["User"]["id"];
     }else{
         $level = 0;
         $id = 0;
@@ -38,7 +38,7 @@ if( $level == 0 ){
     /* ▂ ▅ ▆ █ Whrite  li_1 ( Model menu ): █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Créer un compte';
-        $href = 'create-account';#index.php
+        $href = 'user-create-account';#index.php
         $item = "<li> <hr class='nav-item'>" ;
         $item .= "\t<a class='nav-link active' aria-current='page' href=$href> $text </a>";
         $item .= "</li>";
@@ -69,7 +69,7 @@ if( $level >= 1 ){
     /* ▂ ▅ ▆ █ Whrite  li_2 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Usine';
-        $hrefSubMenu1 = '#'; 
+        $hrefSubMenu1 = 'factory-index'; 
         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
@@ -87,7 +87,7 @@ if( $level >= 1 ){
     /* ▂ ▅ ▆ █ Whrite  li_3 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Production';
-        $hrefSubMenu1 = '#'; 
+        $hrefSubMenu1 = 'production-index'; 
         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
@@ -106,7 +106,7 @@ if( $level >= 1 ){
     /* ▂ ▅ ▆ █ Whrite  li_4 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Topologie';
-        $hrefSubMenu1 = '#'; 
+        $hrefSubMenu1 = 'topologie-index'; 
         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
@@ -147,7 +147,7 @@ if( $level >= 1 ){
     /* ▂ ▅ ▆ █ Whrite  li_1 ( Model menu ): █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Se déconnecter';
-        $href = 'user-disconnect';#index.php
+        $href = 'connection-disconnect';
         $item = "<li class='nav-item'>" ;
         $item .= "\t<a class='nav-link active' aria-current='page' href=$href> $text </a>";
         $item .= "</li>";

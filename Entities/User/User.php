@@ -10,41 +10,46 @@
 /* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */
     use PDO;
     use Exception;
+    
     # Class other
+
+    error_reporting(E_ALL);
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
 class User{
     /* ▂ ▅ Attributs ▅ ▂ */
-    # Attributs useraccount
-        protected $idUserAccount_;
-        protected $userName_;
-        protected $userFirstName_;
-        protected $userEmail_;
-        protected $userRecoveryCode_;
-        protected $userAccess_;
-    # Attributs loginaccount
-        protected $idLoginAccount_;
-        protected $identifiant_;
-        protected $password_;
-
-    /* ▂ ▅  construct  ▅ ▂ */
-        /* @ $objUserAccount( $idUserAccount='', $userName='', $userFirstName='', $userEmail='', $userRecoveryCode='', $userAccess='',  ) */
-        public function __construct( $idUserAccount='', $userName='', $userFirstName='', $userEmail='', $userRecoveryCode='', $userAccess='', $idLoginAccount='', $identifiant='', $password=''  ){
-            $this -> idUserAccount_ = $idUserAccount;
-            $this -> userName_ = $userName;
-            $this -> userFirstName_ = $userFirstName;
-            $this -> userEmail_ = $userEmail;
-            $this -> userRecoveryCode_ = $userRecoveryCode;
-            $this -> userAccess_ = $userAccess;
-            $this -> idLoginAccount_ = $idLoginAccount;
-            $this -> identifiant_ = $identifiant;
-            $this -> password_ = $password;
-        }
+        # Attributs database useraccount
+        private $idUserAccount_;
+        private $userName_;
+        private $userFirstName_;
+        private $userEmail_;
+        private $userRecoveryCode_;
+        private $userAccess_;
+        # Attributs database loginaccount
+        private $idLoginAccount_;
+        private $identifiant_;
+        private $password_;
 
 
-    /* ▂ ▅  hydrate()  ▅ ▂ */
-        /* @ hydrate($donnees) */
+    /* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
+
+    /* ▂ ▅ ▆ █ __construct() █ ▆ ▅ ▂ */
+    # @ __construct( $idUserAccount='', $userName='', $userFirstName='', $userEmail='', $userRecoveryCode='', $userAccess='', $idLoginAccount='', $identifiant='', $password='' )
+    public function __construct( $idUserAccount='', $userName='', $userFirstName='', $userEmail='', $userRecoveryCode='', $userAccess='', $idLoginAccount='', $identifiant='', $password='' ){
+        $this -> idUserAccount_ = $idUserAccount;
+        $this -> userName_ = $userName;
+        $this -> userFirstName_ = $userFirstName;
+        $this -> userEmail_ = $userEmail;
+        $this -> userRecoveryCode_ = $userRecoveryCode;
+        $this -> userAccess_ = $userAccess;
+        $this -> idLoginAccount_ = $idLoginAccount;
+        $this -> identifiant_ = $identifiant;
+        $this -> password_ = $password;
+    }
+
+    /* ▂ ▅ ▆ █ hydrate() █ ▆ ▅ ▂ */
+        # @ hydrate($donnees)
         public function hydrate($donnees){
             foreach ($donnees as $attribut => $valeur){
                 $methode = 'set'.str_replace(' ', '', ucwords(str_replace('_', ' ', $attribut)));
@@ -54,35 +59,34 @@ class User{
             }
         }
 
+    /* ▂ ▅ ▆ █ Settets █ ▆ ▅ ▂  */
+    /* Traitement faille XSS htmlspecialchars() 'Cette fonction retourne une chaîne avec ces Conversions réalisées.' */
+    /* ENT_QUOTES => Convertira les deux citations doubles et simples. */
+    # @ setAttribut($valeur) = htmlspecialchars(trim($valeur), ENT_QUOTES); return $this;
+    public function setIdUserAccount($idUserAccount){ $this -> idUserAccount_ = htmlspecialchars(trim($idUserAccount), ENT_QUOTES); return $this; }
+    public function setUserName($userName){ $this -> userName_ = htmlspecialchars(trim($userName), ENT_QUOTES); return $this; }
+    public function setUserFirstName($userFirstName){ $this -> userFirstName_ = htmlspecialchars(trim($userFirstName), ENT_QUOTES); return $this; }
+    public function setUserEmail($userEmail){ $this -> userEmail_ = htmlspecialchars(trim($userEmail), ENT_QUOTES); return $this; }
+    public function setUserRecoveryCode($userRecoveryCode){ $this -> userRecoveryCode_ = htmlspecialchars(trim($userRecoveryCode), ENT_QUOTES); return $this; }
+    public function setUserAccess($userAccess){ $this -> userAccess_ = htmlspecialchars(trim($userAccess), ENT_QUOTES); return $this; }
+    public function setIdLoginAccount($idLoginAccount){ $this -> idLoginAccount_ = htmlspecialchars(trim($idLoginAccount), ENT_QUOTES); return $this; }
+    public function setIdentifiant($identifiant){ $this -> identifiant_ = htmlspecialchars(trim($identifiant), ENT_QUOTES); return $this; }
+    public function setPassword($password){ $this -> password_ = htmlspecialchars(trim($password), ENT_QUOTES); return $this; }
+  
+   
 
-    /* ▂ ▅  Setters  ▅ ▂ */
-        /* Traitement faille XSS htmlspecialchars() 'Cette fonction retourne une chaîne avec ces Conversions réalisées.' */
-        /* ENT_QUOTES => Convertira les deux citations doubles et simples. */
-        public function setIdUserAccount($modifIdUserAccount){ $this -> idUserAccount_ = htmlspecialchars(trim($modifIdUserAccount), ENT_QUOTES); return $this; }
-        public function setUserName($modifUserName){ $this -> userName_ = htmlspecialchars(trim($modifUserName), ENT_QUOTES); return $this; }
-        public function setUserFirstName($modifUserFirstName){ $this -> userFirstName_ = htmlspecialchars(trim($modifUserFirstName), ENT_QUOTES); return $this; }
-        public function setUserEmail($modifUserEmail){ $this -> userEmail_ = htmlspecialchars(trim($modifUserEmail), ENT_QUOTES); return $this; }
-        public function setUserRecoveryCode($modifUserRecoveryCode){ $this -> userRecoveryCode_ = htmlspecialchars(trim($modifUserRecoveryCode), ENT_QUOTES); return $this; }
-        public function setUserAccess($modifUserAccess){ $this -> userAccess_ = htmlspecialchars(trim($modifUserAccess), ENT_QUOTES); return $this; }
-        public function setIdLoginAccount($modifIdLoginAccount){ $this -> idLoginAccount_ = htmlspecialchars(trim($modifIdLoginAccount), ENT_QUOTES); return $this; }
-        public function setIdentifiant($modifIdentifiant){ $this -> identifiant_ = htmlspecialchars(trim($modifIdentifiant), ENT_QUOTES); return $this; }
-        public function setPassword($modifPassword){ $this -> password_ = htmlspecialchars(trim($modifPassword), ENT_QUOTES); return $this; }
+    /* ▂ ▅ ▆ █ Getters █ ▆ ▅ ▂  */
+    /* Traitement faille XSS htmlspecialchars() 'Cette fonction retourne une chaîne avec ces Conversions réalisées.' */
+    /* ENT_QUOTES => Convertira les deux citations doubles et simples. */
+    # @ getAttribut() = htmlspecialchars_decode($this -> attribut_, ENT_COMPAT);
+    public function getIdUserAccount(){ return htmlspecialchars_decode($this -> idUserAccount_, ENT_COMPAT); }
+    public function getUserName(){ return htmlspecialchars_decode($this -> userName_, ENT_COMPAT); }
+    public function getUserFirstName(){ return htmlspecialchars_decode($this -> userFirstName_, ENT_COMPAT); }
+    public function getUserEmail(){ return htmlspecialchars_decode($this -> userEmail_, ENT_COMPAT); }
+    public function getUserRecoveryCode(){ return htmlspecialchars_decode($this -> userRecoveryCode_, ENT_COMPAT); }
+    public function getUserAccess(){ return htmlspecialchars_decode($this -> userAccess_, ENT_COMPAT); }
+    public function getIdLoginAccount(){ return htmlspecialchars_decode($this -> idLoginAccount_, ENT_COMPAT); }
+    public function getIdentifiant(){ return htmlspecialchars_decode($this -> identifiant_, ENT_COMPAT); }
+    public function getPassword(){ return htmlspecialchars_decode($this -> password_, ENT_COMPAT); }
 
-
-    /* ▂ ▅  Getters  ▅ ▂ */
-        /* Traitement lecture htmlspecialchars_decode() 'Convertir des entités HTML spéciales en caractères'  */
-        /* ENT_COMPAT => Je vais convertir les guillemets doubles et laisser les guillemets simples intacts. */
-        public function getIdUserAccount(){ return htmlspecialchars_decode($this -> idUserAccount_, ENT_COMPAT); }
-        public function getUserName(){ return htmlspecialchars_decode($this -> userName_, ENT_COMPAT); }
-        public function getUserFirstName(){ return htmlspecialchars_decode($this -> userFirstName_, ENT_COMPAT); }
-        public function getUserEmail(){ return htmlspecialchars_decode($this -> userEmail_, ENT_COMPAT); }
-        public function getUserRecoveryCode(){ return htmlspecialchars_decode($this -> userRecoveryCode_, ENT_COMPAT); }
-        public function getUserAccess(){ return htmlspecialchars_decode($this -> userAccess_, ENT_COMPAT); }
-        public function getIdLoginAccount(){ return htmlspecialchars_decode($this -> idLoginAccount_, ENT_COMPAT); }
-        public function getIdentifiant(){ return htmlspecialchars_decode($this -> identifiant_, ENT_COMPAT); }
-        public function getPassword(){ return htmlspecialchars_decode($this -> password_, ENT_COMPAT); }
-    
-
-};
-
-?>
+}

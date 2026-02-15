@@ -4,7 +4,7 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ NameSpace █ ▆ ▅ ▂ */
-    namespace App\Core\RenderData;
+    namespace App\Core\Render;
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */
@@ -12,25 +12,12 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
-    class CreateDivInformation {
+    class DivMsgInformation {
         /* ▂ ▅ Attributs ▅ ▂ */
-            private $textInfo_ ;
             private $resulat_ ;
         /* ▂▂▂▂▂▂▂▂▂▂▂ */
 
         /* ▂ ▅ ▆ █ Methodes █ ▆ ▅ ▂ */
-
-        // /*▂ ▅ ▆ █ construct █ ▆ ▅ ▂ */
-        //     # @ objUserInformation($type='', $textInfo='')
-        //     public function __construct($textInfo=''){
-        //         $this -> textInfo_ = $textInfo;
-        //     }
-        // /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */
-
-        // /*▂ ▅ ▆ █ Setters █ ▆ ▅ ▂ */
-        //     public function setTextInfo($textInfo){ $this -> textInfo_ = $textInfo; }
-        // /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */
-
 
         /* ▂ ▅ ▆ █ Getters █ ▆ ▅ ▂ */ 
             public function getPrimary( $messageProcess ){ # #031633

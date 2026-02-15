@@ -1,7 +1,20 @@
 <?php
     # Declaration and incrementing of variables sheet base.php in the folder Views
+    if(isset($objHeadData)){
+        $titleOnglet = $objHeadData -> getTextOnglet();
+        $authorMeta = $objHeadData -> getAuthor();
+        $keywordsMeta = $objHeadData -> getKeywords();
+        $descriptionMeta = $objHeadData -> getDescription();
+        $shortcutIcon = $objHeadData -> getShortcutIcon();
+        $baseCss = $objHeadData -> getBaseCss();
+        $sheetCss = $objHeadData -> getSheetCss();
+        $scriptJs = $objHeadData -> getScriptJs();
+    };
 
-
+    if(isset($objFooterData)){
+        $footerText = $objFooterData -> getTextFooter();
+        $otherFooter = $objFooterData -> getOtherFooter();
+    };
 
 ?>
 
@@ -39,13 +52,13 @@
       <!-- ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ -->
 
       <!-- ▂ ▅ ▆ █ CSS STYLES SHEETS █ ▆ ▅ ▂ -->
-      <link rel="stylesheet" href="App/Css/base.css">
-      <link rel="stylesheet" href= <?= $sheetCss ?> > 
+      <link rel = "stylesheet" href = <?= $baseCss ?>>
+      <link rel = "stylesheet" href = <?= $sheetCss ?> > 
       <!-- ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ -->
 
       <!-- ▂ ▅ ▆ █ SCRIPTS JS/MODULES █ ▆ ▅ ▂ -->
-      <script src=""> </script>
-      <script type="module" src=<?= $scriptJs ?>></script>
+      <script src = ""> </script>
+      <script type = "module" src=<?= $scriptJs ?>></script>
       <!-- ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂ ▂  -->
 
   </head>

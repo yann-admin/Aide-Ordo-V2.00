@@ -6,7 +6,6 @@ MEMO:
 /* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Import  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
 import Form from "../Classes/classForm-V3.js";
 import { handleFormSubmit } from "./submitForm-V3.js";
-import { fetchActionBtn } from "./fetchActionOther-V3.js";
 /* ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Import  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 
 
@@ -80,7 +79,7 @@ import { fetchActionBtn } from "./fetchActionOther-V3.js";
 
 
 /* ▂ ▅ ▆ █ CONSTANT CONSOLE █ ▆ ▅ ▂ */
-const MODE_DEV = true;
+const MODE_DEV = false;
 if (MODE_DEV) console.clear();
 
 
@@ -111,7 +110,7 @@ export function createdAddEventListener() {
                 button.addEventListener("click", listenBtnSubmit);
                 button.disabled = true;
             };
-           if(button.name == "delete") { button.addEventListener("click", listenBtnOther);};
+           if(button.name == "delete") { button.addEventListener("click", listenBtnDelete);};
         });
     };
 
@@ -162,12 +161,11 @@ function listenBtnBack(event) {
 };
 
 /* ▂ ▅ ▆ █ FUNCTION LISTEN BTN DELETE █ ▆ ▅ ▂ */
-function listenBtnOther(event) {
+function listenBtnDelete(event) {
     event.preventDefault();
     if (MODE_DEV) console.log("Delete button clicked");
     /* Step 1 We get url in data-url attribute of button and we redirect to this url */
-    // window.location.href = BTN_DELETE.getAttribute('data-url');
-    fetchActionBtn(event);/* @ function fetchActionBtn module fetchActionOther.js  */
+    window.location.href = BTN_DELETE.getAttribute('data-url');
 };
 
 /* ▂ ▅ ▆ █ FUNCTION TOGGLE PASSWORD VISIBILITY █ ▆ ▅ ▂ */

@@ -1,4 +1,4 @@
-@import"color.css";
+@import"../color.css";
 
 /* Media query ciblant les mobiles (jusqu’à 30em ≈ 480px) */
 @media screen and (max-width: 30em) {}

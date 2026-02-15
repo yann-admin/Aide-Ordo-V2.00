@@ -93,15 +93,17 @@
                                             if( $fieldValue == '' ){ 
                                                 $fieldEmpty=false; break; 
                                             }else{
-                                                if( !preg_match($regex, $fieldValue) ){                                               
-                                                    $fieldRegex=false;
-                                                    break;
+                                                if( $regex != '' ){
+                                                    if( !preg_match($regex, $fieldValue) ){                                               
+                                                        $fieldRegex=false;
+                                                        break;
+                                                    };
                                                 };
                                             };
                                         };
                                         if($fieldEmpty){
                                             if($fieldRegex){
-                                                $response=['bitErrorSecurityForm'=>false, 'msgErrorSecurityForm'=>'ffff'];
+                                                $response=['bitErrorSecurityForm'=>false, 'msgErrorSecurityForm'=>''];
                                                 return $response;
                                             }else{
                                             $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>"Opération annulée! <br> Veuillez respecter le format demander pour le champ ` $field `."];

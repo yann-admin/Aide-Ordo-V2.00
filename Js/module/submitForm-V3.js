@@ -2,8 +2,8 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */
 /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */
 /* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Import  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
-import * as loader from "./loader.js";
-import { MYFORM } from "./formModule-V3.js";
+import * as loader from "../Module/loader.js";
+import { MYFORM } from "../Module/formModule-V3.js";
 /* ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Import  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 
 /* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Export  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ */
@@ -64,19 +64,17 @@ export async function handleFormSubmit(event) {
             let response = await responsePostData.json();
             if (MODE_DEV) { console.log("Sending JSON data to:", thisUrl, objDataJsonString, responsePostData); }
             //let div = response.div;
-            let elementDiv = document.getElementById(response.div);
-            let status = response.status;
-            let msg = response.msg;
-            let data = response.data;
+            let elementDiv = document.getElementById(response.divUse);
+            let messageTxt = response.messageTxt;
+            let dataInResponse = response.dataInResponse;
             let redirect = response.redirect;
 
-            if (msg != '') { elementDiv.innerHTML = msg; } else { elementDiv.innerHTML = ''; };
-            if (status == true) { 
-                if (data != '') {  };
-                if (redirect != '') { window.location.href = redirect; };
+            if (messageTxt != '') { elementDiv.innerHTML = messageTxt; } else { elementDiv.innerHTML = ''; };
+            if (dataInResponse != '') {  };
+            if (redirect != '') { window.location.href = redirect; };
                 
-                if(MODE_DEV) { console.log("response: ", status, div, msg, data, redirect); }
-            };
+            if(MODE_DEV) { console.log("response: ", elementDiv, messageTxt, dataInResponse, redirect); }
+
 
 
 
