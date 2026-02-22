@@ -43,6 +43,15 @@
                         'adress' => 'Ce champ peut contenir des lettres, des chiffres, des espaces et les signes de ponctuation suivants : , .',
                         'postal-code' => 'Veuillez entrer un code postal à 5 chiffres.',
                         'phone' => 'Veuillez entrer un numéro de téléphone valide, qui peut inclure des chiffres, des espaces, des tirets, des parenthèses et un signe plus.',
+                        'select' => 'Veuillez sélectionner une option valide dans la liste déroulante.',
+                        'file' => 'Veuillez sélectionner un fichier valide.',
+                        'url' => 'Veuillez entrer une URL valide.',
+                        'checkbox' => 'Veuillez cocher cette case pour continuer.',
+                        'radio' => 'Veuillez sélectionner une option parmi les choix disponibles.',
+                        'color' => 'Veuillez sélectionner une couleur valide.',
+                        'range' => 'Veuillez entrer une valeur dans la plage spécifiée.',
+                        'month' => 'Veuillez entrer une valeur au format AAAA-MM.',
+                        'week' => 'Veuillez entrer une valeur au format AAAA-Www.',  
                     ];
                     return $this;
                 }
@@ -64,6 +73,17 @@
                             'adress' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,'-]+$",
                             'postal-code' => "^[\d]{5}$",
                             'phone' => "^\+?[0-9\s\-()]+$",
+                            'select' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'file' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'url' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'search' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'checkbox' => "^(on|off)$",
+                            'radio' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'color' => "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$",
+                            'range' => "^\d+$",
+                            'month' => "^\d{4}-(0[1-9]|1[0-2])$",
+                            'week' => "^\d{4}-W(0[1-9]|[1-4][0-9]|5[0-3])$",
+
                         ];
                         return $this;
                     }
@@ -75,7 +95,7 @@
                             'identifiant' => "/^[A-Za-z0-9À-ÖØ-öø-ÿ_-]{8,10}$/",
                             'password' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\/@$!%*?&#])[A-Za-zÀ-ÖØ-öø-ÿ\d\/@$!%*?&#]{10,12}$/",
                             'email' => "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/",
-                            'text' => "/^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$/",
+                            'text' => "/^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}/",
                             // 'textarea' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,;:!?()&\"'- ]+$/",
                             'textarea' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\/\@\$\!\%\*\?\&\#\.\,\;\:\!\?\(\)\"'\-\[\]]{2,}+$/",
                             'date' => "/^\d{4}-\d{2}-\d{2}$/",
@@ -85,6 +105,17 @@
                             'adress' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\.\,'-]+$/",
                             'postal-code' => "/^[\d]{5}$/",
                             'phone' => "/^\+?[0-9\s\-()]+$/",
+                            'select' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$/",
+                            'file' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$/",
+                            'url' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$/",
+                            'search' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$/",
+                            'checkbox' => "/^(on|off)$/",
+                            'radio' => "/^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$/",
+                            'color' => "/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/",
+                            'range' => "/^\d+$/",   
+                            'month' => "/^\d{4}-(0[1-9]|1[0-2])$/",
+                            'week' => "/^\d{4}-W(0[1-9]|[1-4][0-9]|5[0-3])$/",
+
                         ];
                         return $this;
                     }
@@ -107,6 +138,17 @@
                             'adress' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\.\,'\-]{2,}$",# TEST OK
                             'postal-code' => "^\d{5}$",# TEST OK
                             'phone' => "^\+?[0-9\s\-\(\)]+$",# TEST OK
+                            'select' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'file' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'url' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'search' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'checkbox' => "^(on|off)$",
+                            'radio' => "^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s'-]{2,}$",
+                            'color' => "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$",
+                            'range' => "^\d+$",
+                            'month' => "^\d{4}-(0[1-9]|1[0-2])$",
+                            'week' => "^\d{4}-W(0[1-9]|[1-4][0-9]|5[0-3])$",
+                            
                         ];
                         return $this;
                     }

@@ -73,7 +73,8 @@
  
 
                 /* ▂ ▅ ▆ █ SecurityForm( array $setting ):array ▅ ▂ */
-                    public static function SecurityForm( array $setting , string $ancre):array{
+                    public static function SecurityForm( array $setting ):array{
+                        $ancre = $setting["redirectUrl"] ?? 'home';
                         $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>'error'];
                         # Step 2.0 control method
                         if( $_SERVER["REQUEST_METHOD"] === $setting['method'] ){
@@ -106,12 +107,12 @@
                                                 $response=['bitErrorSecurityForm'=>false, 'msgErrorSecurityForm'=>''];
                                                 return $response;
                                             }else{
-                                            $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>"Opération annulée! <br> Veuillez respecter le format demander pour le champ ` $field `."];
+                                            $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>"Opération annulée! <br> Veuillez respecter le format demander pour le champ ` " . $translatedParams[$field] . " `."];
                                             return $response;
                                             };
                                         # Else 2.4
                                         }else{
-                                            $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>"Opération annulée! <br> Le champ de saisie ` $field  ` est obligatoire."];
+                                            $response=['bitErrorSecurityForm'=>true, 'msgErrorSecurityForm'=>"Opération annulée! <br> Le champ de saisie ` " . $translatedParams[$field] . " ` est obligatoire."];
                                             return $response;
                                         };                                  
                                         # End 2.4

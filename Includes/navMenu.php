@@ -4,7 +4,7 @@
         $level = $_SESSION["User"]["userAccess"];
         $id = $_SESSION["User"]["id"];
     }else{
-        $level = 0;
+        $level = 10;
         $id = 0;
     };
     $Menu = [];
@@ -38,7 +38,7 @@ if( $level == 0 ){
     /* ▂ ▅ ▆ █ Whrite  li_1 ( Model menu ): █ ▆ ▅ ▂ */
         $item = '';
         $text = 'Créer un compte';
-        $href = 'user-create-account';#index.php
+        $href = 'user-create';#index.php
         $item = "<li> <hr class='nav-item'>" ;
         $item .= "\t<a class='nav-link active' aria-current='page' href=$href> $text </a>";
         $item .= "</li>";
@@ -86,8 +86,8 @@ if( $level >= 1 ){
 if( $level >= 1 ){ 
     /* ▂ ▅ ▆ █ Whrite  li_3 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
-        $text = 'Production';
-        $hrefSubMenu1 = 'production-index'; 
+        $text = 'Ligne de Production';
+        $hrefSubMenu1 = 'production-line-index'; 
         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
@@ -125,13 +125,13 @@ if( $level >= 1 ){
     /* ▂ ▅ ▆ █ Whrite  li_4 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
         $text = '<i class="fa-solid fa-file"></i> Mes informations personnelles';
-        $hrefSubMenu1 = "user-show-account-$id"; 
-        $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
+        $hrefSubMenu1 = "user-edit-$id"; 
+        $hrefSubMenu2 = "user-delete-$id"; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
         $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
-        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1><i class='fa-solid fa-eye'></i> Voir </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
+        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1><i class='fa-solid fa-eye'></i> Voir / Modifier mes informations </a></li>";
+        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2><i class='fa-solid fa-trash'></i> Supprimer mon compte </a></li>";
         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
         $item .=    "\t</ul>";

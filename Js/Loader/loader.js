@@ -29,7 +29,7 @@
     let tOnStatus = 0;   
     let currentStep = 0;
 
-    export function startLoader(duration) { 
+    export function startLoader(duration, bit) { 
         DIV_LOADER.classList.replace('visibilityHidden', 'visibilityVisible');  
 
         if (currentStep < TOTAL_INDEX) {
@@ -44,7 +44,9 @@
             currentStep++;
             
             // Schedule the next update
-            tOn = setTimeout(() => { startLoader(duration) }, duration );
+            if (!bit) {
+                tOn = setTimeout(() => { startLoader(duration, true) }, duration);
+            };
         }
     }
 

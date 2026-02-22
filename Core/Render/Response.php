@@ -4,7 +4,7 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ NameSpace █ ▆ ▅ ▂ */
-    namespace App\Core\RenderData;
+    namespace App\Core\Render;
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Inclusion █ ▆ ▅ ▂ */
@@ -12,7 +12,7 @@
 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */ 
 
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
-class ResponseJson {
+class Response {
     /* ▂ ▅ Attributs ▅ ▂ */
         // private $status_;
         // private $div_ ;

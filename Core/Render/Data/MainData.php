@@ -14,10 +14,10 @@
 /* ▂ ▅ ▆ █ Class █ ▆ ▅ ▂ */
 class MainData{
 	/* ▂ ▅ Attributs ▅ ▂ */
-		protected $MainMessage_;
-		protected $Mainforms_;
-
-
+		protected $mainText_;
+		protected $mainforms_;
+		protected $mainData_;
+		protected $mainModales_;
 	/* ▂▂▂▂▂▂▂▂▂▂▂ */
 
 	/* ▂ ▅  copy and paste in the code  ▅ ▂ */
@@ -27,9 +27,11 @@ class MainData{
 
 	/* ▂ ▅  construct  ▅ ▂ */
 		/* @ $objRenderData( $forms='') */
-		public function __construct( $MainMessage='', $Mainforms='' ){
-			$this -> MainMessage_ = $MainMessage;
-			$this -> Mainforms_ = $Mainforms;
+		public function __construct( $mainText='', $mainforms='', $mainData='', $mainModales='' ){
+			$this -> mainText_ = $mainText;
+			$this -> mainforms_ = $mainforms;
+			$this -> mainData_ = $mainData;
+			$this -> mainModales_ = $mainModales;
 
 		}
 
@@ -61,14 +63,18 @@ class MainData{
 	/* ▂ ▅  Setters  ▅ ▂ */
 		/* Traitement faille XSS htmlspecialchars() 'Cette fonction retourne une chaîne avec ces Conversions réalisées.' */
 		/* ENT_QUOTES => Convertira les deux citations doubles et simples. */
-		public function setMainMessage($modifMessage){ $this -> MainMessage_ = trim($modifMessage); return $this; }
-		public function setMainForms($modifForms){ $this -> Mainforms_ = trim($modifForms); return $this; }
-		
+		public function setMainText($modifText){ $this -> mainText_ = trim($modifText); return $this; }
+		public function setMainForms($modifForms){ $this -> mainforms_ = trim($modifForms); return $this; }
+		public function setMainData($modifData){ $this -> mainData_ = $modifData; return $this; }
+		public function setMainModales($modifModales){ $this -> mainModales_ = $modifModales; return $this; }
+
 	/* ▂ ▅  Getters  ▅ ▂ */
 		/* Traitement lecture htmlspecialchars_decode() 'Convertir des entités HTML spéciales en caractères'  */
 		/* ENT_COMPAT => Je vais convertir les guillemets doubles et laisser les guillemets simples intacts. */
-		public function getMainMessage(){ return $this -> MainMessage_; }
-		public function getMainForms(){ return $this -> Mainforms_; }
+		public function getMainText(){ return $this -> mainText_; }
+		public function getMainForms(){ return $this -> mainforms_; }
+		public function getMainData(){ return $this -> mainData_; }
+		public function getMainModales(){ return $this -> mainModales_; }
 
 };
 

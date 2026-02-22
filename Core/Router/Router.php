@@ -35,7 +35,7 @@
                         }else{
                             // On envoie Error 404:
                             http_response_code(404);
-                            echo "La page recherchée n'existe pas";
+                            echo"La page recherchée n'existe pas";
                         };
                     }
                 /* ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ */

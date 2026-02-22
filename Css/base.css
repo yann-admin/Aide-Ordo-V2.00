@@ -29,7 +29,8 @@
     }
     body{
         position: relative;
-        width: 100vw;
+        width: 100%;
+        /* width: 100vw; */
         min-height: 100vh;
         /* min-height: 100%; */
         margin: 0;
@@ -41,11 +42,8 @@
         height: auto;
     }
     .container-table{
-        overflow-x: scroll;  
+        /* overflow-x: scroll;   */
         font-size: 0.8em;     
-        .hidden{
-            display: none;
-        }
     }
 }
 
@@ -59,7 +57,8 @@
     }
     body{
         position: relative;
-        width: 100vw;
+        width: 100%;
+        /* width: 100vw; */
         min-height: 100vh;
         /* min-height: 100%; */
         margin: 0;
@@ -87,7 +86,8 @@
     }
     body{
         position: relative;
-        width: 100vw;
+        width: 100%;
+        /* width: 100vw; */
         /* height: 100vh; */
         height: auto;
         min-height: 100vh; 

@@ -72,7 +72,10 @@ class HomeController extends Controller{
             $this -> render('home/index', ['objHeadData' => $this->objHeadData_, 'objMainData' => $this->objMainData_, 'objFooterData' => $this->objFooterData_] ); 
         }else{
             # The user is not connected
-            $this->root(); 
+            //$this->root(); 
+            // mode developement
+            $this->objHeadData_ -> setTextOnglet("Aide-Ordo - Accueil");
+            $this -> render('home/index', ['objHeadData' => $this->objHeadData_, 'objMainData' => $this->objMainData_, 'objFooterData' => $this->objFooterData_] ); 
         };
     }
 
