@@ -64,62 +64,94 @@ if( $level >= 1 ){
 /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */ 
 };
 
-
 if( $level >= 1 ){ 
     /* ▂ ▅ ▆ █ Whrite  li_2 ( Model with submenu ) █ ▆ ▅ ▂ */
         $item = '';
-        $text = 'Usine';
+        $text = 'Mes données de l\'application';
         $hrefSubMenu1 = 'factory-index'; 
-        $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
+        $hrefSubMenu2 = 'production-line-index'; $hrefSubMenu3 = 'topologie-index'; $hrefSubMenu4 = '#';
         $item = "<li class='nav-item dropdown'>" ;
         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
         $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
-        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
+        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Les usines </a></li>";
+        $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Les lignes de production </a></li>";
+        $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Les Topologies </a></li>";
         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
         $item .=    "\t</ul>";
         $item .= "</li>";
         $Menu['li_Usine'] = $item;
     /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */ 
 };
-if( $level >= 1 ){ 
-    /* ▂ ▅ ▆ █ Whrite  li_3 ( Model with submenu ) █ ▆ ▅ ▂ */
-        $item = '';
-        $text = 'Ligne de Production';
-        $hrefSubMenu1 = 'production-line-index'; 
-        $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
-        $item = "<li class='nav-item dropdown'>" ;
-        $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
-        $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
-        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
-        $item .=    "\t</ul>";
-        $item .= "</li>";
-        $Menu['li_Production'] = $item;
-    /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */  
-};
 
-if( $level >= 1 ){ 
-    /* ▂ ▅ ▆ █ Whrite  li_4 ( Model with submenu ) █ ▆ ▅ ▂ */
-        $item = '';
-        $text = 'Topologie';
-        $hrefSubMenu1 = 'topologie-index'; 
-        $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
-        $item = "<li class='nav-item dropdown'>" ;
-        $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
-        $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
-        $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
-        // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
-        $item .=    "\t</ul>";
-        $item .= "</li>";
-        $Menu['li_Topologie'] = $item;
-    /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */  
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if( $level >= 1 ){ 
+//     /* ▂ ▅ ▆ █ Whrite  li_2 ( Model with submenu ) █ ▆ ▅ ▂ */
+//         $item = '';
+//         $text = 'Usine';
+//         $hrefSubMenu1 = 'factory-index'; 
+//         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
+//         $item = "<li class='nav-item dropdown'>" ;
+//         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
+//         $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
+//         $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
+//         $item .=    "\t</ul>";
+//         $item .= "</li>";
+//         $Menu['li_Usine'] = $item;
+//     /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */ 
+// };
+// if( $level >= 1 ){ 
+//     /* ▂ ▅ ▆ █ Whrite  li_3 ( Model with submenu ) █ ▆ ▅ ▂ */
+//         $item = '';
+//         $text = 'Ligne de Production';
+//         $hrefSubMenu1 = 'production-line-index'; 
+//         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
+//         $item = "<li class='nav-item dropdown'>" ;
+//         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
+//         $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
+//         $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
+//         $item .=    "\t</ul>";
+//         $item .= "</li>";
+//         $Menu['li_Production'] = $item;
+//     /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */  
+// };
+
+// if( $level >= 1 ){ 
+//     /* ▂ ▅ ▆ █ Whrite  li_4 ( Model with submenu ) █ ▆ ▅ ▂ */
+//         $item = '';
+//         $text = 'Topologie';
+//         $hrefSubMenu1 = 'topologie-index'; 
+//         $hrefSubMenu2 = '#'; $hrefSubMenu3 = '#'; $hrefSubMenu4 = '#';
+//         $item = "<li class='nav-item dropdown'>" ;
+//         $item .=    "\t<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'> $text </a>";
+//         $item .=    "\t<ul class='dropdown-menu dropdown-menu-dark'>";
+//         $item .=        "\t\t<li><a class='dropdown-item' href=$hrefSubMenu1> Gérer </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu2> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu3> Action </a></li>";
+//         // $item .=     "\t\t<li><a class='dropdown-item' href=$hrefSubMenu4> Action </a></li>";
+//         $item .=    "\t</ul>";
+//         $item .= "</li>";
+//         $Menu['li_Topologie'] = $item;
+//     /* ▂ ▂ ▂ ▂ ▂ ▂ ▂ */  
+// };
 
 if( $level >= 1 ){ 
     /* ▂ ▅ ▆ █ Whrite  li_4 ( Model with submenu ) █ ▆ ▅ ▂ */

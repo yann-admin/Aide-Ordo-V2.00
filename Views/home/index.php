@@ -1,12 +1,12 @@
 <?php
 /* ▂ ▅ ▆ █ Variables █ ▆ ▅ ▂ */
 
-if(isset($objMainData)){
-    $mainMessage = $objMainData -> getMainText();
-    $mainforms = $objMainData -> getMainForms();
-    $mainModale = $objMainData -> getMainModales();
-    $mainData = $objMainData -> getMainData();
-};
+if(isset($mainData)){
+    $mainMessage = $mainData -> getMainText();
+    $mainforms = $mainData -> getMainForms();
+    $mainModale = $mainData -> getMainModales();
+    $mainData = $mainData -> getMainData();
+}
 
 /* ▂ ▅ ▆ █ HTML █ ▆ ▅ ▂ */
 ?>

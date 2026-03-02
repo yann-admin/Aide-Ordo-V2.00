@@ -1,19 +1,19 @@
 <?php
     # Declaration and incrementing of variables sheet base.php in the folder Views
-    if(isset($objHeadData)){
-        $titleOnglet = $objHeadData -> getTextOnglet();
-        $authorMeta = $objHeadData -> getAuthor();
-        $keywordsMeta = $objHeadData -> getKeywords();
-        $descriptionMeta = $objHeadData -> getDescription();
-        $shortcutIcon = $objHeadData -> getShortcutIcon();
-        $baseCss = $objHeadData -> getBaseCss();
-        $sheetCss = $objHeadData -> getSheetCss();
-        $scriptJs = $objHeadData -> getScriptJs();
+    if(isset($headData)){
+        $titleOnglet = $headData -> getTextOnglet();
+        $authorMeta = $headData -> getAuthor();
+        $keywordsMeta = $headData -> getKeywords();
+        $descriptionMeta = $headData -> getDescription();
+        $shortcutIcon = $headData -> getShortcutIcon();
+        $baseCss = $headData -> getBaseCss();
+        $sheetCss = $headData -> getSheetCss();
+        $scriptJs = $headData -> getScriptJs();
     };
 
-    if(isset($objFooterData)){
-        $footerText = $objFooterData -> getTextFooter();
-        $otherFooter = $objFooterData -> getOtherFooter();
+    if(isset($footerData)){
+        $footerText = $footerData -> getTextFooter();
+        $otherFooter = $footerData -> getOtherFooter();
     };
 
 ?>
@@ -100,10 +100,8 @@ xxl => ≥1400px
         <header class="container-fluid header">
             <nav class="navbar ">
                 <div class="container-fluid">
-                    <!-- <a class="navbar-brand" href="#">Offcanvas navbar</a> -->
-                    <button class="navbar-toggler " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                   <!--  <span class="navbar-toggler-icon"></span> -->
-                    <span> <img src="App/Images/LogoChichoune50x50.png" alt="" class="img-fluid rounded-circle"> </span>
+                <button class="navbar-toggler " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span> <img src="App/Images/LogoChichoune50x50.png" alt="" class="img-fluid rounded-circle"> </span>
 
                     </button>
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
